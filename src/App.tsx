@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { Button, FeedCard } from './components';
+import { constants, supabase } from "./utils"
+import google from './assests/google.svg';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Login, Success } from './pages';
+import { AuthProvider } from './providers';
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <p className="text-3xl font-bold underline">Learn React</p>
+      <Button text={constants.CONTINUE_WITH_GOOGLE} leftIcon={google} />
+      <FeedCard images={[]} hashtags={["NYC", "Travel"]} /> */}
+      <Router>
+        <AuthProvider>
+        <Routes>
+            <Route path='/' element={<Login />} />
+            <Route path='/success' element={<Success />} />
+        </Routes>
+        </AuthProvider>
+    </Router>
     </div>
   );
 }

@@ -1,0 +1,20 @@
+export const colors = {
+    charcoalBlack: "#292929",
+    white: "#FFFFFF",
+    lilacPurple: '#F7EBFF',
+    black: '#000000',
+    azureBlue: '#3C8DFF',
+    smokeGray: "#00000011",
+    coralPink: "#D95B7F",
+    powderBlue: "#E9F6FB",
+    paleBlue: "#E7F1FD",
+    peachyPink: "#FDECE7",
+    icyBlue: "#ECF5FA",
+    aquaGreen: "#E7FBF0",
+    messangerBlue: "#E5F3FE",
+    cyanBlue: "#E6F3FB",
+    electricPink: "#FF40C6",
+    lightGray: "#D9D9D9",
+    darkGray: "#212121",
+    mistGray: "#D9D9D9"
+}
