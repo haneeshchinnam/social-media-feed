@@ -67,6 +67,7 @@ const Profile = () => {
         <div className="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 3xl:grid-cols-12 gap-4 h-[calc(100vh-28rem)] overflow-y-auto">
           {location.state.posts.map((post: any) => (
             <PostCard
+            key={post.id}
               type={post.images[0].type}
               count={post.images.length}
               pic={post.images[0].src}

@@ -76,7 +76,7 @@ const Posts = () => {
   }, []);
 
   return (
-    <main className="w-screen flex  justify-center">
+    <main className="w-screen flex">
       <section className="m-4 max-w-[35rem]">
       <section className="flex gap-2 items-center">
         <button onClick={() => navigate("/profile", { state: { profile: profile, posts: posts.filter((l) => l.user_id) } })}>
