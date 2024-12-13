@@ -1,30 +1,70 @@
-import React, { useEffect } from 'react';
-import './App.css';
-import { Button, FeedCard } from './components';
-import { constants, supabase } from "./utils"
-import google from './assests/google.svg';
+import "./App.css";
+import { ProtectedRoute } from "./components";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Login, Success } from './pages';
-import { AuthProvider } from './providers';
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { CreatePost, EditProfile, Login, Posts, Profile, SignUp } from "./pages";
+import Appbar from "./components/Appbar";
 
 function App() {
-  
+  const router = createBrowserRouter([
+    {
+      element: <Layout />,
+      children: [
+        { path: "/", element: <Login /> },
+        { path: "/signup", element: <SignUp /> },
+        {
+          path: "/posts",
+          element: (
+            <ProtectedRoute>
+              <Posts />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/create-post",
+          element: (
+            <ProtectedRoute>
+              <CreatePost />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/profile",
+          element: (
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/edit-profile",
+          element: (
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          ),
+        },
+      ],
+    },
+  ]);
+
   return (
     <div>
-      {/* <p className="text-3xl font-bold underline">Learn React</p>
-      <Button text={constants.CONTINUE_WITH_GOOGLE} leftIcon={google} />
-      <FeedCard images={[]} hashtags={["NYC", "Travel"]} /> */}
-      <Router>
-        <AuthProvider>
-        <Routes>
-            <Route path='/' element={<Login />} />
-            <Route path='/success' element={<Success />} />
-        </Routes>
-        </AuthProvider>
-    </Router>
+      <RouterProvider router={router}>
+          <></>
+      </RouterProvider>
     </div>
   );
 }
 
 export default App;
+
+const Layout = ({ children }: { children?: JSX.Element }) => {
+  return (
+    <div>
+      <Appbar />
+      {children}
+      <Outlet />
+    </div>
+  );
+};

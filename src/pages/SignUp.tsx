@@ -1,7 +1,7 @@
+import React, { useState } from "react";
 import { constants, supabase } from "../utils";
 import { Button, ReusableInput } from "../components";
 import google from "../assests/google.svg";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../providers/ReduxProvider";
 import { setUser } from "../state/globalSlice";
@@ -26,46 +26,51 @@ const validatePassword = (value: string): string => {
   return "";
 };
 
-const Login = () => {
+const SignUp = () => {
   const [gmail, setGmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
 
   const handleGoogleSignIn = async () => {
-    try {
-  
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/posts`,
-        },
+    const { error, data } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    console.log("data", data);
 
-      });
-  
-      if (error) {
-        console.error("Error during Google sign-in:", error.message);
-      }
-    } catch (err) {
-      console.error("Unexpected error during sign-in:", err);
-    }
+    if (error) console.error("Error during Google sign-in:", error.message);
+  };
+
+  const validateConfirmPassword = (value: string): string => {
+    if (!value) return "Please confirm your password.";
+    if (value !== password) return "Passwords do not match.";
+    return "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signUp({
       email: gmail,
       password: password,
-    })
+      options: {
+        emailRedirectTo: "/edit-profile",
+        data: {
+          confirmation_sent_at: Date.now(),
+      },
+      },
+      
+    });
     if(data) {
+      console.log("data", data);
       dispatch(setUser({ id: data.user?.id ?? '' }))
-      navigate('/posts')
+      navigate("/edit-profile")
     }
   };
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <ReusableInput
           type="email"
@@ -89,15 +94,25 @@ const Login = () => {
           }}
           val={password}
         />
+        <ReusableInput
+          type="password"
+          label="Confirm Password"
+          name="confirm_password"
+          placeholder="Enter your password"
+          validate={(value) => {
+            setConfirmPassword(value);
+            return validateConfirmPassword(value);
+          }}
+          val={confirmPassword}
+        />
         <button
           type="submit"
           className="w-full bg-charcoalBlack text-white p-2 rounded mt-4 transition"
         >
           Submit
         </button>
-        <p className="cursor-pointer" onClick={() => navigate("/signup")}>new user? sign up</p>
       </form>
-      <p className="flex justify-center pt-4">OR</p>
+      <p className="flex justify-center py-4">OR</p>
       <section className="flex justify-center mt-4">
         <Button
           text={constants.CONTINUE_WITH_GOOGLE}
@@ -110,4 +125,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

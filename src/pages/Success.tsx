@@ -5,9 +5,6 @@ import { Button } from '../components';
 const Success = () => {
     const signOutUser = async () => {
         const {error} = await supabase.auth.signOut();
-
-        // console.log("url", process.env.SUPABASE_URL);
-        
     }
   return (
     <div>

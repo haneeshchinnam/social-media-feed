@@ -16,5 +16,7 @@ export const colors = {
     electricPink: "#FF40C6",
     lightGray: "#D9D9D9",
     darkGray: "#212121",
-    mistGray: "#D9D9D9"
+    mistGray: "#D9D9D9",
+    semiTransparentBlack: "#00000054",
+    gray: "#F4F4F4"
 }
