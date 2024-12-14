@@ -56,7 +56,7 @@ const SignUp = () => {
       options: {
         emailRedirectTo: "/edit-profile",
         data: {
-          confirmation_sent_at: Date.now(),
+          autoConfirm: true
       },
       },
       
