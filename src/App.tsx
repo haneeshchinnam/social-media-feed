@@ -2,7 +2,7 @@ import "./App.css";
 import { ProtectedRoute } from "./components";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { CreatePost, EditProfile, Login, Posts, Profile, SignUp } from "./pages";
+import { CreatePost, EditProfile, Login, Post, Posts, Profile, SignUp } from "./pages";
 import Appbar from "./components/Appbar";
 
 function App() {
@@ -17,6 +17,14 @@ function App() {
           element: (
             <ProtectedRoute>
               <Posts />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/post/:id",
+          element: (
+            <ProtectedRoute>
+              <Post />
             </ProtectedRoute>
           ),
         },

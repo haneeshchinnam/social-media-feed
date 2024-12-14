@@ -1,4 +1,3 @@
-import heart from "../assests/heart.svg";
 import navigation from "../assests/navigation.svg";
 import Button from "./Button";
 import Video from "./Video";
@@ -8,13 +7,17 @@ const FeedCard = ({
   hashtags,
   desc,
   name,
-  profile_pic
+  profile_pic,
+  onShare,
+  onClick
 }: {
   images: { src: string; type: boolean }[];
   hashtags: string[];
   desc: string;
   name: string;
   profile_pic: string;
+  onShare: () => void
+  onClick: () => void
 }) => {
   const displayImages = images;
 
@@ -117,7 +120,7 @@ const FeedCard = ({
     }
   };
   return (
-    <section className="rounded-3xl bg-lilacPurple w-full p-4">
+    <section className="rounded-3xl bg-lilacPurple w-full p-4 flex flex-col items-start">
       <div className="flex gap-4 mb-4">
         <img
           src={profile_pic}
@@ -126,34 +129,33 @@ const FeedCard = ({
           height={40}
           className="rounded-full cursor-pointer"
         />
-        <div className="flex flex-col">
+        <div className="flex flex-col items-start">
           <p className="text-black font-semibold text-base">{name}</p>
           <p className="text-[10px] font-normal text-black opacity-40">
             2 hours ago
           </p>
         </div>
       </div>
-      <p className="text-xs font-normal">
+      <p className="text-xs font-normal flex-wrap text-start">
         {desc}
       </p>
-      <div className="flex gap-1 mb-3">
+      <div className="flex flex-wrap gap-1 mb-3">
         {hashtags.map((tag) => (
           <p className="text-sm text-azureBlue" key={tag}>
             #{tag}
           </p>
         ))}
       </div>
-      <div className="relative w-full h-64 mx-auto">{renderImageLayout()}</div>
+      <div className="relative w-full h-64 mx-auto" onClick={onClick}>{renderImageLayout()}</div>
       <div className="flex justify-between mt-4">
         <div className="flex gap-1 items-center">
-          {/* <img src={heart} alt="heart-image" width={16} height={16} />
-          <p className="text-coralPink">67</p> */}
         </div>
         <Button
           text="Share"
           buttonStyle="bg-smokeGray text-black !gap-2 py-[6px]"
           leftIcon={navigation}
           textStyle="text-black"
+          onClick={onShare}
         />
       </div>
     </section>

@@ -9,7 +9,7 @@ const ShareIcon = ({
   icon: string;
   iconColor: string;
   title: string;
-  onClick?: () => null;
+  onClick?: () => void;
 }) => {
   return (
     <button className="flex flex-col items-center gap-2" onClick={onClick}>

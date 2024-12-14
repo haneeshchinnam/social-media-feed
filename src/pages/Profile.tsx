@@ -5,7 +5,7 @@ import { PostCard } from "../components";
 const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   return (
     <div className="flex flex-col text-white">
       <div className="w-full absolute top-16 z-50 cursor-pointer">
@@ -64,13 +64,13 @@ const Profile = () => {
         </p>
         <p className="text-xl text-black mt-6 font-semibold">My Posts</p>
 
-        <div className="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 3xl:grid-cols-12 gap-4 h-[calc(100vh-28rem)] overflow-y-auto">
+        <div className="grid grid-cols-2 xs:grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 3xl:grid-cols-12 gap-4 h-[calc(100vh-28rem)] overflow-y-auto no-scrollbar">
           {location.state.posts.map((post: any) => (
             <PostCard
-            key={post.id}
-              type={post.images[0].type}
+              key={post.id}
+              type={post.images[0]?.type ?? false}
               count={post.images.length}
-              pic={post.images[0].src}
+              pic={post.images[0]?.src}
               desc={post.desc}
             />
           ))}

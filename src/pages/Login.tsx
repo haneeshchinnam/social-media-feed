@@ -30,19 +30,16 @@ const Login = () => {
   const [gmail, setGmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const handleGoogleSignIn = async () => {
     try {
-  
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/posts`,
         },
-
       });
-  
       if (error) {
         console.error("Error during Google sign-in:", error.message);
       }
@@ -56,10 +53,10 @@ const Login = () => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: gmail,
       password: password,
-    })
-    if(data) {
-      dispatch(setUser({ id: data.user?.id ?? '' }))
-      navigate('/posts')
+    });
+    if (!error) {
+      dispatch(setUser({ id: data.user?.id ?? "" }));
+      navigate("/posts");
     }
   };
 
@@ -95,7 +92,9 @@ const Login = () => {
         >
           Submit
         </button>
-        <p className="cursor-pointer" onClick={() => navigate("/signup")}>new user? sign up</p>
+        <p className="cursor-pointer" onClick={() => navigate("/signup")}>
+          new user? sign up
+        </p>
       </form>
       <p className="flex justify-center pt-4">OR</p>
       <section className="flex justify-center mt-4">

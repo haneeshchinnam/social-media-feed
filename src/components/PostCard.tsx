@@ -1,4 +1,3 @@
-import image1 from "../assests/heart.svg";
 import { IPostProfile } from "../interfaces";
 import Video from "./Video";
 
@@ -13,10 +12,10 @@ const PostCard = ({ count, desc, type, pic }: IPostProfile) => {
       <p className="ml-2 text-sm font-semibold text-white absolute bottom-8 l-2">
         {desc}
       </p>
-      <div className="ml-2 bottom-4 absolute flex gap-1 items-center">
+      {/* <div className="ml-2 bottom-4 absolute flex gap-1 items-center">
        <img src={image1} alt="heart-image" width={16} height={16} />
         <p className="text-xs text-white">67</p>
-      </div>
+      </div> */}
     </div>
   );
 };

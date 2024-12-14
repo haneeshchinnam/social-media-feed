@@ -39,7 +39,7 @@ const CreatePost = () => {
       else console.log("Inserted:", data);
 
       if (data) {
-        const links = videoFile.map(async (v) => await uploadVideo(v));
+        const links = await videoFile.map(async (v) => await uploadVideo(v));
 
         Promise.all(links).then((resolvedLinks) => {
           resolvedLinks.forEach(async (link) => {
@@ -63,9 +63,9 @@ const CreatePost = () => {
               }
             }
           });
-        });
+        }).then(() => setTimeout(() => navigate("/posts"), 500));
       }
-      navigate("/posts");
+      
     } catch (error) {
       console.log("error", error);
     }

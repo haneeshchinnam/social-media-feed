@@ -1,6 +1,7 @@
 export interface ShareModalProps {
     isOpen: boolean;
+    link: string;
     onClose: () => void;
-    onShare: () => void;
+    onShare: (platform: string, link: string) => void;
   }
   
